@@ -20,7 +20,9 @@
 /checkout/*/*
 /cms/noroute/index
 /review/product/list
-/catalogsearch/*/*]]></noindex_routes>
+/catalogsearch/*/*
+/terms
+/terms/]]></noindex_routes>
             </robots>
             <seo_pagination>
                 <enabled>1</enabled>

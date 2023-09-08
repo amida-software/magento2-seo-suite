@@ -55,6 +55,8 @@ class LayoutGenerateBlocksAfter implements ObserverInterface
     public function execute(Observer $observer)
     {
         $currentRoute = $this->http->getFullActionName('/');
+        $origPath = $this->http->getOriginalPathInfo();
+
         $this->seoSuiteHelper->log(__METHOD__ . '::$currentRoute::' . $currentRoute, true);
 
         if ($currentRoute == 'contact/index/index') {
@@ -66,9 +68,12 @@ class LayoutGenerateBlocksAfter implements ObserverInterface
         }
 
         $allowedRoutes = $this->seoSuiteHelper->getConfig()->getRobotsNoIndexRoutes();
-        if (!$this->routeResolver->match($currentRoute, $allowedRoutes)) {
+        if (!$this->routeResolver->match($currentRoute, $allowedRoutes) &&
+            !$this->routeResolver->matchOrigPath($origPath, $allowedRoutes))
+        {
             return;
         }
+
         $this->pageConfig->setMetadata('robots', self::META_ROBOTS_VALUE);
     }
 }

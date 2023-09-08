@@ -38,4 +38,15 @@ class RouteResolver
 
         return false;
     }
+
+    public function matchOrigPath($route, array $allowedRoutes)
+    {
+        foreach ($allowedRoutes as $allowedRoute) {
+            $allowedRoute = preg_replace('/\s+/', '', $allowedRoute);
+            if ($route == $allowedRoute) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
